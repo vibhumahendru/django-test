@@ -3,4 +3,20 @@
 {% block content %}
 <h1>CONTACTTTT Vibhu Template</h1>
 
+<p>
+{{my_num}}, {{my_text}},
+{{my_list}}
+</p>
+
+<ul>
+  {% for el in my_list %}
+
+    {%if el == 23%}
+      <p>YAAAY</p>
+    {%endif%}
+    <li>{{el}}</li>
+  {% endfor %}
+</ul>
+
+
 {% endblock %}
