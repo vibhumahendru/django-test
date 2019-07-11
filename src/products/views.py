@@ -7,19 +7,32 @@ from django.http import HttpResponse
 # Create your views here.
 
 
-def product_create_view(request):
-    form = ProductForm(request.POST or None)
+# def product_create_view(request):
+#     form = ProductForm(request.POST or None)
+#
+#     if form.is_valid():
+#         form.save()
+#         form = ProductForm()
+#         print("YO YO YO")
+#     context = {
+#         "form":form
+#     }
+#
+#     return render(request, 'products/product_create.html',context)
 
-    if form.is_valid():
-        form.save()
-        form = ProductForm()
-        print("YO YO YO")
+def product_create_view(request):
+    # print("in GET", request.GET)
+    # print("in post", request.POST['title'])
+    print("THIS IS A TEST PRINT")
+    print(request)
+    my_title = request.POST.get('title')
+    print(my_title)
+    # Product.objects.create(title=my_title)
     context = {
-        "form":form
+
     }
 
     return render(request, 'products/product_create.html',context)
-
 
 
 
