@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Product
-from .forms import ProductForm
+from .forms import ProductForm, RawProductForm
 from django.core import serializers
 from django.http import HttpResponse
 
@@ -20,16 +20,33 @@ from django.http import HttpResponse
 #
 #     return render(request, 'products/product_create.html',context)
 
-def product_create_view(request):
-    # print("in GET", request.GET)
-    # print("in post", request.POST['title'])
-    print("THIS IS A TEST PRINT")
-    print(request)
-    my_title = request.POST.get('title')
-    print(my_title)
-    # Product.objects.create(title=my_title)
-    context = {
+# def product_create_view(request):
+#     # print("in GET", request.GET)
+#     # print("in post", request.POST['title'])
+#     print("THIS IS A TEST PRINT")
+#     print(request)
+#     my_title = request.POST.get('title')
+#     print(my_title)
+#     # Product.objects.create(title=my_title)
+#     context = {
+#
+#     }
+#
+#     return render(request, 'products/product_create.html',context)
 
+def product_create_view(request):
+
+    my_form = RawProductForm()
+    if request.method == "POST":
+        my_form = RawProductForm(request.POST)
+        if my_form.is_valid():
+            print(my_form.cleaned_data)
+            Product.objects.create(**my_form.cleaned_data)
+        else:
+            print(my_form.errors)
+
+    context = {
+        "form":my_form
     }
 
     return render(request, 'products/product_create.html',context)
